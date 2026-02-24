@@ -41,3 +41,4 @@ LinkVault — personal bookmark manager. Save, tag, search, and organize URLs ac
 # Environment Variables
 - `DATABASE_URL` — Turso database URL (e.g. `libsql://your-db.turso.io`). Falls back to `file:./local.db` for local dev.
 - `DATABASE_AUTH_TOKEN` — Turso auth token. Not needed for local SQLite.
+- `API_KEY` — Protects `/api/` routes. Requests must include `x-api-key` header. If unset, no protection (dev mode).

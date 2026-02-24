@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createBookmark, updateBookmark, deleteBookmark } from "@/lib/bookmarks";
 import { createTag } from "@/lib/tags";
+import { fetchMetadata } from "@/lib/metadata";
 import type { Tag } from "@/lib/types";
 
 export async function createBookmarkAction(
@@ -72,6 +73,14 @@ export async function deleteBookmarkAction(
 
   revalidatePath("/");
   return {};
+}
+
+export async function fetchMetadataAction(
+  url: string
+): Promise<{ data?: { title: string | null; faviconUrl: string | null }; error?: string }> {
+  const result = await fetchMetadata(url);
+  if (result.error !== null) return { error: result.error };
+  return { data: result.data };
 }
 
 export async function createTagAction(

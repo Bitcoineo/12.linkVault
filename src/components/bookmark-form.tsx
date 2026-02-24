@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { createBookmarkAction, updateBookmarkAction, createTagAction } from "@/app/actions";
+import { createBookmarkAction, updateBookmarkAction, createTagAction, fetchMetadataAction } from "@/app/actions";
 import type { Tag, Collection, BookmarkWithDetails } from "@/lib/types";
 import { getContrastColor } from "@/lib/utils";
 
@@ -39,15 +39,10 @@ export function BookmarkForm({ tags: initialTags, collections, bookmark, onClose
 
     setIsLoadingMeta(true);
     try {
-      const res = await fetch("/api/bookmarks/metadata", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
-      });
-      const json = await res.json();
-      if (json.data) {
-        if (json.data.title && !title) setTitle(json.data.title);
-        if (json.data.faviconUrl) setFaviconUrl(json.data.faviconUrl);
+      const result = await fetchMetadataAction(url);
+      if (result.data) {
+        if (result.data.title && !title) setTitle(result.data.title);
+        if (result.data.faviconUrl) setFaviconUrl(result.data.faviconUrl);
       }
     } catch {
       // Metadata fetch is best-effort
