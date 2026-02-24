@@ -75,7 +75,8 @@ export async function createBookmark(input: {
     if (isUniqueViolation(e)) {
       return err("A bookmark with this URL already exists");
     }
-    return err("Failed to create bookmark");
+    console.error("Failed to create bookmark:", e);
+    return err(`Failed to create bookmark: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -133,8 +134,9 @@ export async function getBookmarks(filters?: {
       .offset(filters?.offset ?? 0);
 
     return ok(rows);
-  } catch {
-    return err("Failed to fetch bookmarks");
+  } catch (e) {
+    console.error("Failed to fetch bookmarks:", e);
+    return err(`Failed to fetch bookmarks: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -149,8 +151,9 @@ export async function getBookmarkById(
 
     if (rows.length === 0) return err("Bookmark not found");
     return ok(rows[0]);
-  } catch {
-    return err("Failed to fetch bookmark");
+  } catch (e) {
+    console.error("Failed to fetch bookmark:", e);
+    return err(`Failed to fetch bookmark: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -211,7 +214,8 @@ export async function updateBookmark(
     if (isUniqueViolation(e)) {
       return err("A bookmark with this URL already exists");
     }
-    return err("Failed to update bookmark");
+    console.error("Failed to update bookmark:", e);
+    return err(`Failed to update bookmark: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -226,8 +230,9 @@ export async function deleteBookmark(
 
     if (!deleted) return err("Bookmark not found");
     return ok(deleted);
-  } catch {
-    return err("Failed to delete bookmark");
+  } catch (e) {
+    console.error("Failed to delete bookmark:", e);
+    return err(`Failed to delete bookmark: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -271,8 +276,9 @@ export async function getBookmarksWithTags(filters?: {
       tags: tagMap.get(b.id) ?? [],
     }));
     return ok(withTags);
-  } catch {
-    return err("Failed to fetch bookmark tags");
+  } catch (e) {
+    console.error("Failed to fetch bookmark tags:", e);
+    return err(`Failed to fetch bookmark tags: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -312,7 +318,8 @@ export async function getBookmarkWithDetails(
       tags: tagRows,
       collections: collectionRows,
     });
-  } catch {
-    return err("Failed to fetch bookmark details");
+  } catch (e) {
+    console.error("Failed to fetch bookmark details:", e);
+    return err(`Failed to fetch bookmark details: ${e instanceof Error ? e.message : String(e)}`);
   }
 }

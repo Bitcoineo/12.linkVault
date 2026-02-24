@@ -25,6 +25,7 @@ export async function GET(
   const result = await getBookmarkById(id);
   if (result.error) {
     const status = result.error.includes("not found") ? 404 : 500;
+    if (status === 500) console.error("GET /api/bookmarks/[id] error:", result.error);
     return NextResponse.json({ error: result.error }, { status });
   }
   return NextResponse.json({ data: result.data });
@@ -62,6 +63,7 @@ export async function PUT(
     if (result.error.includes("already exists")) {
       return NextResponse.json({ error: result.error }, { status: 409 });
     }
+    console.error("PUT /api/bookmarks/[id] error:", result.error);
     return NextResponse.json({ error: result.error }, { status: 500 });
   }
   return NextResponse.json({ data: result.data });
@@ -75,6 +77,7 @@ export async function DELETE(
   const result = await deleteBookmark(id);
   if (result.error) {
     const status = result.error.includes("not found") ? 404 : 500;
+    if (status === 500) console.error("DELETE /api/bookmarks/[id] error:", result.error);
     return NextResponse.json({ error: result.error }, { status });
   }
   return NextResponse.json({ data: result.data });

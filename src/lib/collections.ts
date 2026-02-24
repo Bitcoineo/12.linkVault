@@ -19,8 +19,9 @@ export async function createCollection(
       .returning();
 
     return ok(created);
-  } catch {
-    return err("Failed to create collection");
+  } catch (e) {
+    console.error("Failed to create collection:", e);
+    return err(`Failed to create collection: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -31,8 +32,9 @@ export async function getCollections(): Promise<Result<Collection[]>> {
       .from(collections)
       .orderBy(asc(collections.name));
     return ok(rows);
-  } catch {
-    return err("Failed to fetch collections");
+  } catch (e) {
+    console.error("Failed to fetch collections:", e);
+    return err(`Failed to fetch collections: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -47,8 +49,9 @@ export async function deleteCollection(
 
     if (!deleted) return err("Collection not found");
     return ok(deleted);
-  } catch {
-    return err("Failed to delete collection");
+  } catch (e) {
+    console.error("Failed to delete collection:", e);
+    return err(`Failed to delete collection: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -75,7 +78,8 @@ export async function getBookmarksByCollection(
       .orderBy(desc(bookmarks.createdAt));
 
     return ok(rows);
-  } catch {
-    return err("Failed to fetch bookmarks by collection");
+  } catch (e) {
+    console.error("Failed to fetch bookmarks by collection:", e);
+    return err(`Failed to fetch bookmarks by collection: ${e instanceof Error ? e.message : String(e)}`);
   }
 }

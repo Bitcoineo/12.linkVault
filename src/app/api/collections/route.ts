@@ -10,6 +10,7 @@ const createSchema = z.object({
 export async function GET() {
   const result = await getCollections();
   if (result.error) {
+    console.error("GET /api/collections error:", result.error);
     return NextResponse.json({ error: result.error }, { status: 500 });
   }
   return NextResponse.json({ data: result.data });
@@ -39,6 +40,7 @@ export async function POST(request: NextRequest) {
     parsed.data.description
   );
   if (result.error) {
+    console.error("POST /api/collections error:", result.error);
     return NextResponse.json({ error: result.error }, { status: 500 });
   }
   return NextResponse.json({ data: result.data }, { status: 201 });

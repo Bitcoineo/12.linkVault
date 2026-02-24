@@ -31,6 +31,7 @@ export async function GET(request: NextRequest) {
 
   const result = await getBookmarks(parsed.data);
   if (result.error) {
+    console.error("GET /api/bookmarks error:", result.error);
     return NextResponse.json({ error: result.error }, { status: 500 });
   }
   return NextResponse.json({ data: result.data });
@@ -62,6 +63,7 @@ export async function POST(request: NextRequest) {
   const result = await createBookmark(input);
   if (result.error) {
     const status = result.error.includes("already exists") ? 409 : 500;
+    if (status === 500) console.error("POST /api/bookmarks error:", result.error);
     return NextResponse.json({ error: result.error }, { status });
   }
   return NextResponse.json({ data: result.data }, { status: 201 });

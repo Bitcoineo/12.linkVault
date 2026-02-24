@@ -13,6 +13,7 @@ const createSchema = z.object({
 export async function GET() {
   const result = await getTags();
   if (result.error) {
+    console.error("GET /api/tags error:", result.error);
     return NextResponse.json({ error: result.error }, { status: 500 });
   }
   return NextResponse.json({ data: result.data });
@@ -40,6 +41,7 @@ export async function POST(request: NextRequest) {
   const result = await createTag(parsed.data.name, parsed.data.color);
   if (result.error) {
     const status = result.error.includes("already exists") ? 409 : 500;
+    if (status === 500) console.error("POST /api/tags error:", result.error);
     return NextResponse.json({ error: result.error }, { status });
   }
   return NextResponse.json({ data: result.data }, { status: 201 });

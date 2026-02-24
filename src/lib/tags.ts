@@ -20,7 +20,8 @@ export async function createTag(
     if (cause?.message?.includes("UNIQUE") || String(e).includes("UNIQUE")) {
       return err(`Tag "${name}" already exists`);
     }
-    return err("Failed to create tag");
+    console.error("Failed to create tag:", e);
+    return err(`Failed to create tag: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -28,8 +29,9 @@ export async function getTags(): Promise<Result<Tag[]>> {
   try {
     const rows = await db.select().from(tags).orderBy(asc(tags.name));
     return ok(rows);
-  } catch {
-    return err("Failed to fetch tags");
+  } catch (e) {
+    console.error("Failed to fetch tags:", e);
+    return err(`Failed to fetch tags: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -42,8 +44,9 @@ export async function deleteTag(id: string): Promise<Result<Tag>> {
 
     if (!deleted) return err("Tag not found");
     return ok(deleted);
-  } catch {
-    return err("Failed to delete tag");
+  } catch (e) {
+    console.error("Failed to delete tag:", e);
+    return err(`Failed to delete tag: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
 
@@ -67,7 +70,8 @@ export async function getBookmarksByTag(
       .orderBy(desc(bookmarks.createdAt));
 
     return ok(rows);
-  } catch {
-    return err("Failed to fetch bookmarks by tag");
+  } catch (e) {
+    console.error("Failed to fetch bookmarks by tag:", e);
+    return err(`Failed to fetch bookmarks by tag: ${e instanceof Error ? e.message : String(e)}`);
   }
 }
