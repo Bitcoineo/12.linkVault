@@ -33,8 +33,8 @@ export default async function DashboardPage({ searchParams }: PageProps) {
   const collections = collectionsResult.data ?? [];
 
   return (
-    <div className="p-6 max-w-6xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="p-4 md:p-6 max-w-6xl mx-auto space-y-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold">Bookmarks</h1>
         <BookmarkFormDialog mode="add" tags={tags} collections={collections} />
       </div>

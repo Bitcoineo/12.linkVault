@@ -29,7 +29,7 @@ export default async function BookmarkDetailPage({ params }: PageProps) {
   const collections = collectionsResult.data ?? [];
 
   return (
-    <div className="p-6 max-w-3xl mx-auto space-y-6">
+    <div className="p-4 md:p-6 max-w-3xl mx-auto space-y-6">
       {/* Back link */}
       <Link
         href="/"

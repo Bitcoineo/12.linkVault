@@ -37,7 +37,7 @@ export function BookmarkFormDialog({ mode, tags, collections, bookmark }: Bookma
 
       <dialog
         ref={dialogRef}
-        className="w-full max-w-lg rounded-xl bg-background border border-card-border p-6 backdrop:bg-black/50 backdrop:backdrop-blur-sm"
+        className="w-[calc(100%-2rem)] max-w-lg rounded-xl bg-background border border-card-border p-4 md:p-6 backdrop:bg-black/50 backdrop:backdrop-blur-sm"
         onClick={(e) => {
           if (e.target === e.currentTarget) close();
         }}

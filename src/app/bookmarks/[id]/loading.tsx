@@ -1,6 +1,6 @@
 export default function BookmarkDetailLoading() {
   return (
-    <div className="p-6 max-w-3xl mx-auto space-y-6 animate-pulse">
+    <div className="p-4 md:p-6 max-w-3xl mx-auto space-y-6 animate-pulse">
       {/* Back link */}
       <div className="h-4 w-32 bg-card rounded" />
 

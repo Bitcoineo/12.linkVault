@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Suspense } from "react";
 import { Sidebar } from "@/components/sidebar";
+import { SidebarToggle } from "@/components/sidebar-toggle";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -41,9 +42,11 @@ export default function RootLayout({
       >
         <div className="flex min-h-screen">
           <Suspense>
-            <Sidebar />
+            <SidebarToggle>
+              <Sidebar />
+            </SidebarToggle>
           </Suspense>
-          <main className="flex-1 overflow-y-auto">{children}</main>
+          <main className="flex-1 overflow-y-auto min-w-0 pt-14 md:pt-0">{children}</main>
         </div>
       </body>
     </html>

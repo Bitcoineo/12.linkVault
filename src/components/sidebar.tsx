@@ -6,7 +6,7 @@ export async function Sidebar() {
   const collections = result.data ?? [];
 
   return (
-    <aside className="w-64 flex-shrink-0 bg-sidebar-bg border-r border-card-border p-4 flex flex-col gap-6">
+    <aside className="w-full bg-sidebar-bg border-r border-card-border p-4 flex flex-col gap-6 h-full overflow-y-auto">
       <div className="px-3">
         <h1 className="text-lg font-bold text-foreground tracking-tight">
           LinkVault
